@@ -1,0 +1,46 @@
+def longest_word(sentence):
+    words = sentence.split()
+    longest = max(words, key=len)
+    return longest
+
+def char_frequency(string, char):
+    count = string.count(char)
+    return count
+
+def is_palindrome(string):
+    clean_string = string.replace(" ", "").lower()
+    return clean_string == clean_string[::-1]
+
+def copy_string(string):
+    return string
+
+str = input("Enter string: ")
+
+while True:
+    print("\n\n--------------------MENU--------------------\n")
+    print("1. To display word with longest length")
+    print("2. To determine the frequency of occurrence of a particular character in the string")
+    print("3. To check whether the given string is palindrome or not")
+    print("4. To copy the string")
+    print("5. Exit\n")
+
+    ch = int(input("Enter your Choice (from 1 to 5): "))
+
+    if ch == 1:
+        print("The longest word is:", longest_word(str))
+    elif ch == 2:
+        char = input("Enter character to be counted: ")
+        print(f"The character '{char}' appears {char_frequency(str, char)} times.")
+    elif ch == 3:
+        if is_palindrome(str):
+            print(f"'{str}' is a palindrome.")
+        else:
+            print(f"'{str}' is not a palindrome.")
+    elif ch == 4:
+        copied_string = copy_string(str)
+        print(f"Copied string: '{copied_string}'")
+    elif ch == 5:
+        print("End of program")
+        break
+    else:
+        print("Invalid choice")

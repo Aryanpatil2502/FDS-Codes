@@ -1,0 +1,68 @@
+def linear_search(target, lst1):
+    flag = 0
+    i = 0
+    for i in range(len(lst1)):
+        if target == lst1[i]:
+            flag = 1
+            location = i
+            break
+    if flag == 1:
+        print("Student with roll number", target, "attended the training program at location", location)
+    else:
+        print("Student with roll number", target, "did not attend the training program")
+    return flag
+
+def sentinel_search(arr, key):
+    n = len(arr)
+    last = arr[n-1]
+    arr[n-1] = key
+    i = 0
+
+    while arr[i] != key:
+        i += 1
+
+    arr[n-1] = last
+
+    if i < n - 1 or arr[n-1] == key:
+        print("Student with roll number", key, "attended the training program at location", i)
+    else:
+        print("Student with roll number", key, "did not attend the training program")
+    return i
+
+def main():
+    while True:
+        print("\n--------------------MENU--------------------")
+        print("1: Linear Search")
+        print("2: Sentinel Search")
+        print("3: Exit")
+
+        ch = int(input("Enter your choice: "))
+
+        if ch == 3:
+            print("End of program")
+            break
+
+        elif ch == 1:
+            n = int(input("Enter the number of students in array: "))
+            lst1 = []
+            for i in range(n):
+                roll = int(input("Enter roll number of student: "))
+                lst1.append(roll)
+
+            target = int(input("Enter roll number of student to search: "))
+            linear_search(target, lst1)
+
+        elif ch == 2:
+            n = int(input("Enter the number of students in array: "))
+            lst1 = []
+            for i in range(n):
+                roll = int(input("Enter roll number of student: "))
+                lst1.append(roll)
+
+            target = int(input("Enter roll number of student to search: "))
+            sentinel_search(lst1, target)
+
+        else:
+            print("Invalid choice")
+
+main()

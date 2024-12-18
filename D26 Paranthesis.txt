@@ -1,0 +1,53 @@
+#include <iostream>
+#include <stack>
+using namespace std;
+
+// Function to check if the given character is an opening delimiter
+bool isOpening(char ch) {
+    return ch == '(' || ch == '{' || ch == '[';
+}
+
+// Function to check if the given character is a closing delimiter
+bool isClosing(char ch) {
+    return ch == ')' || ch == '}' || ch == ']';
+}
+
+// Function to check if the opening and closing delimiters match
+bool isMatchingPair(char open, char close) {
+    return (open == '(' && close == ')') || 
+           (open == '{' && close == '}') || 
+           (open == '[' && close == ']');
+}
+
+// Function to check if the given expression is well-parenthesized
+bool isWellParenthesized(const string& expression) {
+    stack<char> s;
+    
+    for (char ch : expression) {
+        if (isOpening(ch)) {
+            s.push(ch); // Push opening delimiter to stack
+        } else if (isClosing(ch)) {
+            if (s.empty() || !isMatchingPair(s.top(), ch)) {
+                return false; // Mismatch or stack is empty
+            }
+            s.pop(); // Pop the matching opening delimiter
+        }
+    }
+    
+    // If stack is empty, all delimiters matched correctly
+    return s.empty();
+}
+
+int main() {
+    string expression;
+    cout << "Enter an expression with delimiters (e.g., (a+b), [a*b], etc.): ";
+    cin >> expression;
+    
+    if (isWellParenthesized(expression)) {
+        cout << "The expression is well parenthesized." << endl;
+    } else {
+        cout << "The expression is NOT well parenthesized." << endl;
+    }
+    
+    return 0;
+}

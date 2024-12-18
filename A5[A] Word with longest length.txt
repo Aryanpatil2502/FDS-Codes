@@ -1,0 +1,56 @@
+'''
+PROBLEM STATEMENT: Write a Python program to compute following operations on String:
+a) To display word with the longest length
+b) To determines the frequency of occurrence of particular character in the string
+c) To check whether given string is palindrome or not
+'''
+
+def longest_word(sentence):
+    words = sentence.split()
+    longest = max(words, key=len)
+    return longest
+
+def char_frequency(string, char):
+    count = string.count(char)
+    return count
+
+def word_frequency(sentence):
+    words = sentence.split()
+    frequency = {}
+    for word in words:
+        if word in frequency:
+            frequency[word] += 1
+        else:
+            frequency[word] = 1
+    return frequency
+
+def is_palindrome(string):
+    clean_string = string.replace(" ", "").lower()
+    return clean_string == clean_string[::-1]
+
+str = input("Enter string: ")
+
+while True:
+    print("\n\n--------------------MENU--------------------\n")
+    print("1. To display word with longest length")
+    print("2. To determine the frequency of occurrence of a particular character in the string")
+    print("3. To check whether the given string is palindrome or not")
+    print("4 Exit\n")
+
+    ch = int(input("Enter your Choice (from 1 to 4: "))
+
+    if ch == 1:
+        print("The longest word is:", longest_word(str))
+    elif ch == 2:
+        char = input("Enter character to be counted: ")
+        print(f"The character '{char}' appears {char_frequency(str, char)} times.")
+    elif ch == 3:
+        if is_palindrome(str):
+            print(f"'{str}' is a palindrome.")
+        else:
+            print(f"'{str}' is not a palindrome.")
+    elif ch == 4:
+        print("End of program")
+        break
+    else:
+        print("Invalid choice")

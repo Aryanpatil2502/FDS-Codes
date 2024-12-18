@@ -1,0 +1,114 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class CircularQueue {
+private:
+    string* queue;
+    int front, rear, capacity, size;
+
+public:
+    // Constructor
+    CircularQueue(int cap) {
+        capacity = cap;
+        queue = new string[capacity];
+        front = 0;
+        rear = 0;
+        size = 0;
+    }
+
+    // Destructor
+    ~CircularQueue() {
+        delete[] queue;
+    }
+
+    // Function to check if the queue is full
+    bool isFull() {
+        return size == capacity;
+    }
+
+    // Function to check if the queue is empty
+    bool isEmpty() {
+        return size == 0;
+    }
+
+    // Function to add an order
+    void addOrder(const string& order) {
+        if (isFull()) {
+            cout << "Order cannot be placed. The queue is full." << endl;
+            return;
+        }
+        queue[rear] = order;
+        rear = (rear + 1) % capacity;
+        size++;
+        cout << "Order placed: " << order << endl;
+    }
+
+    // Function to serve an order
+    void serveOrder() {
+        if (isEmpty()) {
+            cout << "No orders to serve." << endl;
+            return;
+        }
+        cout << "Serving order: " << queue[front] << endl;
+        front = (front + 1) % capacity;
+        size--;
+    }
+
+    // Function to display current orders
+    void displayOrders() {
+        if (isEmpty()) {
+            cout << "No orders in the queue." << endl;
+            return;
+        }
+        cout << "Current orders: ";
+        for (int i = 0; i < size; i++) {
+            cout << queue[(front + i) % capacity] << " ";
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    int capacity;
+    cout << "Enter the maximum number of orders (M): ";
+    cin >> capacity;
+
+    CircularQueue cq(capacity);
+    int choice;
+    string order;
+
+    do {
+        cout << "\nPizza Parlor Menu:\n";
+        cout << "1. Place Order\n";
+        cout << "2. Serve Order\n";
+        cout << "3. Display Orders\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        cin.ignore();  // To clear the buffer after reading the integer input
+
+        switch (choice) {
+            case 1:
+                cout << "Enter order name: ";
+                getline(cin, order);  // Using getline to handle multi-word orders
+                cq.addOrder(order);
+                break;
+            case 2:
+                cq.serveOrder();
+                break;
+            case 3:
+                cq.displayOrders();
+                break;
+            case 4:
+                cout << "Exiting..." << endl;
+                break;
+            default:
+                cout << "Invalid choice. Please try again." << endl;
+        }
+    } while (choice != 4);
+
+    return 0;
+}
